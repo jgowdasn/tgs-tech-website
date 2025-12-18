@@ -210,9 +210,9 @@ const Hero = () => {
                 className="flex gap-8 mt-12"
               >
                 {[
-                  { number: '500+', label: 'Happy Clients' },
-                  { number: '10K+', label: 'Gifts Delivered' },
-                  { number: '10+', label: 'Years Experience' },
+                  { number: '100+', label: 'Happy Clients' },
+                  { number: '1000+', label: 'Gifts Delivered' },
+                  { number: '5+', label: 'Years Experience' },
                 ].map((stat, index) => (
                   <div key={index} className="text-center">
                     <div className={`text-2xl md:text-3xl font-bold bg-gradient-to-r ${currentData.color} bg-clip-text text-transparent`}>
@@ -308,11 +308,10 @@ const Hero = () => {
           <button
             key={index}
             onClick={() => setCurrentSlide(index)}
-            className={`h-2 rounded-full transition-all duration-300 ${
-              currentSlide === index
-                ? `w-8 bg-gradient-to-r ${slides[index].color}`
-                : 'w-2 bg-white/30 hover:bg-white/50'
-            }`}
+            className={`h-2 rounded-full transition-all duration-300 ${currentSlide === index
+              ? `w-8 bg-gradient-to-r ${slides[index].color}`
+              : 'w-2 bg-white/30 hover:bg-white/50'
+              }`}
           />
         ))}
       </div>

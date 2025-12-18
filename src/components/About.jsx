@@ -121,7 +121,7 @@ const About = () => {
               transition={{ duration: 0.5, delay: 0.5 }}
               className="absolute -bottom-4 -left-4 bg-white p-6 rounded-2xl shadow-xl"
             >
-              <div className="text-4xl font-bold text-primary">10+</div>
+              <div className="text-4xl font-bold text-primary">5+</div>
               <div className="text-gray-600">Years Experience</div>
             </motion.div>
 
@@ -132,7 +132,7 @@ const About = () => {
               transition={{ duration: 0.5, delay: 0.7 }}
               className="absolute -top-4 -right-4 bg-primary text-white p-6 rounded-2xl shadow-xl"
             >
-              <div className="text-4xl font-bold">500+</div>
+              <div className="text-4xl font-bold">100+</div>
               <div className="text-white/80">Happy Clients</div>
             </motion.div>
           </motion.div>

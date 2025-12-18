@@ -3,7 +3,7 @@ import { FaWhatsapp } from 'react-icons/fa';
 
 const WhatsAppButton = () => {
   // Replace with your actual WhatsApp number
-  const whatsappNumber = '919876543210'; // Format: country code + number without +
+  const whatsappNumber = '917892359479'; // Format: country code + number without +
   const whatsappMessage = encodeURIComponent(
     "Hi! I'm interested in your gifting services. Please provide more information."
   );

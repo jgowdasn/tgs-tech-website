@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
 import emailjs from '@emailjs/browser';
-import { FaMapMarkerAlt, FaPhone, FaEnvelope, FaClock, FaWhatsapp, FaPaperPlane, FaCheckCircle } from 'react-icons/fa';
+import { FaMapMarkerAlt, FaPhone, FaEnvelope, FaClock, FaWhatsapp, FaPaperPlane, FaCheckCircle, FaRegBuilding } from 'react-icons/fa';
 
 const Contact = () => {
   const ref = useRef(null);
@@ -50,17 +50,22 @@ const Contact = () => {
     {
       icon: <FaMapMarkerAlt />,
       title: 'Location',
-      details: ['Bengaluru & Kolar', 'Karnataka, India'],
+      details: ['Kalyaani Nagar, Vasanthapura', 'Bangalore - 560061', 'Karnataka, India'],
+    },
+    {
+      icon: <FaRegBuilding />,
+      title: 'Branch',
+      details: ['Bank colony, keelukote', 'kolar - 563101', 'Karnataka, India'],
     },
     {
       icon: <FaPhone />,
       title: 'Phone',
-      details: ['+91 98765 43210', '+91 98765 43211'],
+      details: ['+91 78923 59479', '+91 97384 99080'],
     },
     {
       icon: <FaEnvelope />,
       title: 'Email',
-      details: ['info@tgsgifts.com', 'orders@tgsgifts.com'],
+      details: ['info@tgstech.in', 'sunitha@tgstech.in'],
     },
     {
       icon: <FaClock />,
@@ -80,7 +85,7 @@ const Contact = () => {
   ];
 
   // WhatsApp number - Replace with your actual WhatsApp number
-  const whatsappNumber = '919876543210'; // Format: country code + number without +
+  const whatsappNumber = '917892359479'; // Format: country code + number without +
   const whatsappMessage = encodeURIComponent('Hi! I\'m interested in your gifting services. Please provide more information.');
 
   return (
@@ -203,7 +208,7 @@ const Contact = () => {
                     onChange={handleChange}
                     required
                     className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent transition-all outline-none"
-                    placeholder="+91 98765 43210"
+                    placeholder="+91 78923 59479"
                   />
                 </div>
 
@@ -250,11 +255,10 @@ const Contact = () => {
                   disabled={isSubmitting}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className={`w-full py-4 rounded-lg font-semibold text-white flex items-center justify-center gap-2 transition-all ${
-                    isSubmitting
-                      ? 'bg-gray-400 cursor-not-allowed'
-                      : 'bg-primary hover:bg-primary-dark'
-                  }`}
+                  className={`w-full py-4 rounded-lg font-semibold text-white flex items-center justify-center gap-2 transition-all ${isSubmitting
+                    ? 'bg-gray-400 cursor-not-allowed'
+                    : 'bg-primary hover:bg-primary-dark'
+                    }`}
                 >
                   {isSubmitting ? (
                     <>

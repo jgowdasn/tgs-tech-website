@@ -26,11 +26,11 @@ const Footer = () => {
   ];
 
   const socialLinks = [
-    { icon: <FaFacebookF />, href: '#', label: 'Facebook' },
-    { icon: <FaInstagram />, href: '#', label: 'Instagram' },
-    { icon: <FaTwitter />, href: '#', label: 'Twitter' },
-    { icon: <FaLinkedinIn />, href: '#', label: 'LinkedIn' },
-    { icon: <FaWhatsapp />, href: 'https://wa.me/919876543210', label: 'WhatsApp' },
+    { icon: <FaFacebookF />, href: 'https://www.facebook.com/share/17o8GX758U/', label: 'Facebook' },
+    { icon: <FaInstagram />, href: 'https://www.instagram.com/thanishq_gifts_gallery?igsh=MXFiemJsYzhuaXZ4aw==', label: 'Instagram' },
+    // { icon: <FaTwitter />, href: '#', label: 'Twitter' },
+    { icon: <FaLinkedinIn />, href: 'https://www.linkedin.com/in/thanishq-global-solutions', label: 'LinkedIn' },
+    { icon: <FaWhatsapp />, href: `https://wa.me/917892359479?text=${encodeURIComponent('Hi! I\'m interested in your gifting services. Please provide more information.')}`, label: 'WhatsApp' },
   ];
 
   return (
@@ -111,26 +111,28 @@ const Footer = () => {
               <li className="flex items-start gap-3">
                 <FaMapMarkerAlt className="text-primary mt-1 flex-shrink-0" />
                 <span className="text-gray-400">
-                  Bengaluru & Kolar<br />
-                  Karnataka, India
+                  Kalyaani Nagar<br />
+                  Vasanthapura<br />
+                  Bangalore - 560061<br />
+                  Karnataka, India<br />
                 </span>
               </li>
               <li className="flex items-center gap-3">
                 <FaPhone className="text-primary flex-shrink-0" />
-                <a href="tel:+919876543210" className="text-gray-400 hover:text-primary transition-colors">
-                  +91 98765 43210
+                <a href="tel:+917892359479" className="text-gray-400 hover:text-primary transition-colors">
+                  +91 78923 59479
                 </a>
               </li>
               <li className="flex items-center gap-3">
                 <FaEnvelope className="text-primary flex-shrink-0" />
                 <a href="mailto:info@tgsgifts.com" className="text-gray-400 hover:text-primary transition-colors">
-                  info@tgsgifts.com
+                  info@tgstech.in
                 </a>
               </li>
               <li className="flex items-center gap-3">
                 <FaWhatsapp className="text-primary flex-shrink-0" />
                 <a
-                  href="https://wa.me/919876543210"
+                  href={`https://wa.me/917892359479?text=${encodeURIComponent('Hi! I\'m interested in your gifting services. Please provide more information.')}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-gray-400 hover:text-primary transition-colors"
@@ -148,7 +150,7 @@ const Footer = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-gray-400 text-sm text-center md:text-left">
-              &copy; {new Date().getFullYear()} TGS Gifts. All rights reserved.
+              &copy; 2024{/*{new Date().getFullYear()} */} TGS Tech. All rights reserved.
             </p>
             <div className="flex items-center gap-6 text-sm text-gray-400">
               <a href="#" className="hover:text-primary transition-colors">Privacy Policy</a>

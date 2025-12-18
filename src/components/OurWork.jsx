@@ -61,10 +61,10 @@ const OurWork = () => {
   ];
 
   const stats = [
-    { icon: <FaBuilding />, number: '500+', label: 'Corporate Clients' },
-    { icon: <FaUsers />, number: '100K+', label: 'Products Delivered' },
-    { icon: <FaCalendar />, number: '10+', label: 'Years Experience' },
-    { icon: <FaCheckCircle />, number: '99%', label: 'Client Satisfaction' },
+    { icon: <FaBuilding />, number: '100+', label: 'Corporate Clients' },
+    { icon: <FaUsers />, number: '1000+', label: 'Products Delivered' },
+    { icon: <FaCalendar />, number: '5+', label: 'Years Experience' },
+    { icon: <FaCheckCircle />, number: '98%', label: 'Client Satisfaction' },
   ];
 
   return (
