@@ -30,14 +30,14 @@ const Contact = () => {
     // EmailJS Configuration
     const serviceId = 'service_6nx0c7q';
     const templateId = 'template_91372tn';
-    const publicKey = 'V2HckmtVqfrmRj67';
+    const publicKey = '-V2HckmtVqfrmRj67';
 
     try {
       await emailjs.sendForm(serviceId, templateId, formRef.current, publicKey);
       setSubmitStatus('success');
       setFormData({ name: '', email: '', phone: '', service: '', message: '' });
     } catch (error) {
-      console.error('Email error:', error);
+      console.error('Email error:', error?.text || error?.message || error);
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
