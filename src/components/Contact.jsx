@@ -27,11 +27,10 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // EmailJS Configuration - Replace with your actual keys
-    // Sign up at https://www.emailjs.com/ and get your keys
-    const serviceId = 'YOUR_SERVICE_ID'; // Replace with your EmailJS service ID
-    const templateId = 'YOUR_TEMPLATE_ID'; // Replace with your EmailJS template ID
-    const publicKey = 'YOUR_PUBLIC_KEY'; // Replace with your EmailJS public key
+    // EmailJS Configuration
+    const serviceId = 'service_6nx0c7q';
+    const templateId = 'template_91372tn';
+    const publicKey = 'V2HckmtVqfrmRj67';
 
     try {
       await emailjs.sendForm(serviceId, templateId, formRef.current, publicKey);
@@ -163,6 +162,8 @@ const Contact = () => {
             className="lg:col-span-2"
           >
             <form ref={formRef} onSubmit={handleSubmit} className="bg-gray-50 rounded-2xl p-8">
+              {/* Hidden field for recipient email */}
+              <input type="hidden" name="to_email" value="thanishqglobalsolutions@gmail.com" />
               <div className="grid md:grid-cols-2 gap-6">
                 {/* Name */}
                 <div>
