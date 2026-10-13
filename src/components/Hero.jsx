@@ -14,6 +14,7 @@ const Hero = () => {
       icon: <FaGift />,
       color: 'from-primary via-rose-500 to-orange-400',
       bgColor: 'bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900',
+      image: '/images/hero.webp',
     },
     {
       title: 'Wedding Return',
@@ -23,6 +24,7 @@ const Hero = () => {
       icon: <FaHeart />,
       color: 'from-pink-400 via-rose-400 to-red-400',
       bgColor: 'bg-gradient-to-br from-slate-900 via-rose-900 to-slate-900',
+      image: '/images/hero-2.webp',
     },
     {
       title: 'School & College',
@@ -32,6 +34,7 @@ const Hero = () => {
       icon: <FaStar />,
       color: 'from-blue-400 via-cyan-400 to-teal-400',
       bgColor: 'bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900',
+      image: '/images/hero-3.webp',
     },
   ];
 
@@ -237,8 +240,12 @@ const Hero = () => {
                 className="relative"
               >
                 <div className={`absolute inset-0 bg-gradient-to-r ${currentData.color} blur-3xl opacity-30 rounded-full scale-75`} />
-                <img
-                  src="/images/hero.webp"
+                <motion.img
+                  key={currentSlide + 'hero-img'}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.6 }}
+                  src={currentData.image}
                   alt="Premium Gift Hamper"
                   className="relative w-96 h-96 object-cover rounded-3xl shadow-2xl mx-auto border-4 border-white/20"
                 />
