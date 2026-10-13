@@ -1,5 +1,6 @@
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
+import DiwaliSection from './components/DiwaliSection';
 import Services from './components/Services';
 import Products from './components/Products';
 import Gallery from './components/Gallery';
@@ -15,6 +16,7 @@ function App() {
     <div className="min-h-screen">
       <Navbar />
       <Hero />
+      <DiwaliSection />
       <Services />
       <Products />
       <Gallery />

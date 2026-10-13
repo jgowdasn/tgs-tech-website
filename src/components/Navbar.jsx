@@ -16,6 +16,7 @@ const Navbar = () => {
 
   const navLinks = [
     { name: 'Home', href: '#home' },
+    { name: 'Diwali Special', href: '#diwali' },
     { name: 'Services', href: '#services' },
     { name: 'Products', href: '#products' },
     { name: 'Gallery', href: '#gallery' },
