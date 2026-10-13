@@ -63,8 +63,7 @@ const FireworksCanvas = () => {
 
     let lastSpawn = 0;
     function animate(time) {
-      ctx.fillStyle = 'rgba(26, 10, 46, 0.25)';
-      ctx.fillRect(0, 0, W, H);
+      ctx.clearRect(0, 0, W, H);
 
       if (time - lastSpawn > 800 + Math.random() * 1200) {
         spawnRocket();
@@ -158,7 +157,7 @@ const BALLOONS = [
 
 const Balloon = ({ b }) => (
   <div
-    className="absolute"
+    className="absolute pointer-events-none"
     style={{
       left: `${b.left}%`,
       bottom: '-80px',
@@ -347,7 +346,7 @@ const DiwaliSection = () => {
       <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-orange-500/10 rounded-full blur-3xl" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-yellow-500/5 rounded-full blur-3xl" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" style={{ zIndex: 20 }}>
 
         {/* Header */}
         <motion.div
