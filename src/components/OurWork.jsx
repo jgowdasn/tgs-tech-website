@@ -15,48 +15,48 @@ const OurWork = () => {
   const projects = [
     {
       id: 1,
-      title: 'Tech Startup Employee Kits',
+      title: 'Choco & Dry Fruits Hampers',
       client: 'Leading IT Company',
-      items: '500+ Welcome Kits',
-      description: 'Complete onboarding kits including branded t-shirts, backpacks, notebooks, and tech accessories.',
-      deliverables: ['Custom T-Shirts', 'Laptop Bags', 'Notebooks', 'Wireless Earbuds'],
-      color: 'from-blue-500 to-indigo-600',
+      items: '500+ Gift Boxes',
+      description: 'Premium chocolate and dry fruit gift boxes for employee appreciation and client gifting.',
+      deliverables: ['Chocolates', 'Dry Fruits', 'Custom Packaging', 'Brand Labels'],
+      image: '/images/work/work-1.webp',
     },
     {
       id: 2,
-      title: 'Grand Wedding Return Gifts',
+      title: 'Blossom Treasury Collection',
       client: 'Private Family',
       items: '1000+ Gift Sets',
-      description: 'Elegant return gift sets for a traditional South Indian wedding with custom packaging.',
-      deliverables: ['Silver Items', 'Dry Fruit Boxes', 'Custom Packaging', 'Traditional Items'],
-      color: 'from-pink-500 to-rose-600',
+      description: 'Elegant floral-themed gift hampers for a grand wedding celebration.',
+      deliverables: ['Curated Hampers', 'Dry Fruit Boxes', 'Custom Packaging', 'Traditional Items'],
+      image: '/images/work/work-2.webp',
     },
     {
       id: 3,
-      title: 'Annual Day Celebration',
+      title: 'Small Wonders Gift Sets',
       client: 'International School',
-      items: '800+ Prizes',
-      description: 'Complete prize distribution items for annual day including trophies and medals.',
-      deliverables: ['Trophies', 'Medals', 'Certificate Holders', 'Gift Vouchers'],
-      color: 'from-green-500 to-emerald-600',
+      items: '800+ Gifts',
+      description: 'Compact yet delightful gift sets for academic events and celebrations.',
+      deliverables: ['Mini Hampers', 'Treat Boxes', 'Custom Labels', 'Gift Vouchers'],
+      image: '/images/work/work-3.webp',
     },
     {
       id: 4,
-      title: 'Diwali Corporate Hampers',
+      title: 'Trail Mix Hamper Collection',
       client: 'Banking Institution',
       items: '2000+ Hampers',
-      description: 'Premium Diwali gift hampers for employees and valued clients.',
-      deliverables: ['Dry Fruits', 'Chocolates', 'Diyas', 'Sweets'],
-      color: 'from-orange-500 to-amber-600',
+      description: 'Healthy trail mix hampers for Diwali corporate gifting to employees and clients.',
+      deliverables: ['Trail Mixes', 'Dry Fruits', 'Energy Bars', 'Custom Boxes'],
+      image: '/images/work/work-4.webp',
     },
     {
       id: 5,
-      title: 'Brand Launch Merchandise',
+      title: 'Double Decker Hampers',
       client: 'FMCG Company',
       items: '3000+ Items',
-      description: 'Complete branded merchandise for new product launch events.',
-      deliverables: ['T-Shirts', 'Caps', 'Mugs', 'Tote Bags'],
-      color: 'from-purple-500 to-violet-600',
+      description: 'Grand double-decker hampers packed with premium festive goodies for brand launches.',
+      deliverables: ['Chocolates', 'Dry Fruits', 'Gourmet Snacks', 'Custom Branding'],
+      image: '/images/work/work-5.webp',
     },
   ];
 
@@ -130,11 +130,20 @@ const OurWork = () => {
             {projects.map((project) => (
               <SwiperSlide key={project.id}>
                 <div className="bg-white rounded-2xl overflow-hidden shadow-lg h-full border border-gray-100">
-                  {/* Project Header */}
-                  <div className={`bg-gradient-to-r ${project.color} p-6 text-white`}>
-                    <span className="text-sm opacity-80">{project.client}</span>
-                    <h3 className="text-xl font-bold mt-1">{project.title}</h3>
-                    <p className="text-sm mt-2 opacity-90">{project.items}</p>
+                  {/* Project Image */}
+                  <div className="relative h-48 overflow-hidden">
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                    <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
+                      <span className="text-xs opacity-80">{project.client}</span>
+                      <h3 className="text-lg font-bold">{project.title}</h3>
+                      <p className="text-xs mt-1 opacity-90">{project.items}</p>
+                    </div>
                   </div>
 
                   {/* Project Body */}

@@ -42,7 +42,7 @@ const Footer = () => {
           <div>
             <a href="#home" className="inline-block mb-6">
               <img
-                src="/images/logo/TGS Tech_logo.jpeg"
+                src="/images/logo/TGS Tech_logo.webp"
                 alt="TGS Tech Logo"
                 className="h-16 w-auto object-contain rounded-lg bg-white p-1"
               />

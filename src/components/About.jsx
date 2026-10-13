@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { FaCheckCircle, FaAward, FaHandshake, FaTruck, FaLeaf, FaHeart } from 'react-icons/fa';
+import { FaCheckCircle, FaAward, FaHandshake, FaTruck, FaLeaf } from 'react-icons/fa';
 
 const About = () => {
   const ref = useRef(null);
@@ -99,15 +99,14 @@ const About = () => {
             transition={{ duration: 0.8 }}
             className="relative"
           >
-            {/* Main Image Placeholder */}
+            {/* Main Image */}
             <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-              <div className="h-96 bg-gradient-to-br from-primary/20 via-accent/20 to-secondary/20 flex items-center justify-center">
-                <div className="text-center p-8">
-                  <FaHeart className="text-6xl text-primary mx-auto mb-4" />
-                  <p className="text-secondary font-medium">Add your team/office image</p>
-                  <p className="text-gray-500 text-sm mt-2">/public/images/about.jpg</p>
-                </div>
-              </div>
+              <img
+                src="/images/about.webp"
+                alt="TGS Gifts Premium Hamper"
+                className="h-96 w-full object-cover"
+                loading="lazy"
+              />
 
               {/* Decorative Elements */}
               <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-primary/20 rounded-2xl -z-10" />

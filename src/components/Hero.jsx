@@ -224,78 +224,24 @@ const Hero = () => {
               </motion.div>
             </div>
 
-            {/* Right Content - Animated Gift Box */}
+            {/* Right Content - Hero Image */}
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8 }}
               className="relative hidden lg:block"
             >
-              {/* Main Floating Element */}
               <motion.div
-                animate={{ y: [0, -20, 0] }}
+                animate={{ y: [0, -15, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
                 className="relative"
               >
-                {/* Glowing Background */}
                 <div className={`absolute inset-0 bg-gradient-to-r ${currentData.color} blur-3xl opacity-30 rounded-full scale-75`} />
-
-                {/* Gift Box Container */}
-                <div className="relative w-80 h-80 mx-auto">
-                  {/* Animated Ring 1 */}
-                  <motion.div
-                    className="absolute inset-0 border-2 border-white/20 rounded-full"
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-                  />
-                  {/* Animated Ring 2 */}
-                  <motion.div
-                    className="absolute inset-4 border border-white/10 rounded-full"
-                    animate={{ rotate: -360 }}
-                    transition={{ duration: 15, repeat: Infinity, ease: 'linear' }}
-                  />
-                  {/* Animated Ring 3 */}
-                  <motion.div
-                    className="absolute inset-8 border border-dashed border-white/10 rounded-full"
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 25, repeat: Infinity, ease: 'linear' }}
-                  />
-
-                  {/* Center Icon */}
-                  <motion.div
-                    key={currentSlide + 'icon'}
-                    initial={{ scale: 0, rotate: -180 }}
-                    animate={{ scale: 1, rotate: 0 }}
-                    transition={{ duration: 0.6, type: 'spring' }}
-                    className="absolute inset-0 flex items-center justify-center"
-                  >
-                    <div className={`w-32 h-32 bg-gradient-to-br ${currentData.color} rounded-3xl flex items-center justify-center text-white text-5xl shadow-2xl transform rotate-12`}>
-                      {currentData.icon}
-                    </div>
-                  </motion.div>
-
-                  {/* Floating Small Elements */}
-                  {[...Array(6)].map((_, i) => (
-                    <motion.div
-                      key={i}
-                      className={`absolute w-4 h-4 bg-gradient-to-r ${currentData.color} rounded-full`}
-                      style={{
-                        top: `${20 + Math.random() * 60}%`,
-                        left: `${20 + Math.random() * 60}%`,
-                      }}
-                      animate={{
-                        y: [0, -10, 0],
-                        opacity: [0.5, 1, 0.5],
-                        scale: [1, 1.2, 1],
-                      }}
-                      transition={{
-                        duration: 2 + Math.random() * 2,
-                        repeat: Infinity,
-                        delay: i * 0.3,
-                      }}
-                    />
-                  ))}
-                </div>
+                <img
+                  src="/images/hero.webp"
+                  alt="Premium Gift Hamper"
+                  className="relative w-96 h-96 object-cover rounded-3xl shadow-2xl mx-auto border-4 border-white/20"
+                />
               </motion.div>
             </motion.div>
           </div>

@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
-import { FaSearch, FaShoppingCart } from 'react-icons/fa';
+import { FaSearch } from 'react-icons/fa';
 import { FloatingBubbles, AmoebaBlob, GlowingOrbs } from './AnimatedShapes';
 
 const Products = () => {
@@ -11,77 +11,76 @@ const Products = () => {
 
   const categories = [
     { id: 'all', name: 'All Products', icon: '✨' },
-    { id: 'apparel', name: 'Apparel', icon: '👕' },
-    { id: 'drinkware', name: 'Drinkware', icon: '🥤' },
-    { id: 'stationery', name: 'Stationery', icon: '📝' },
-    { id: 'bags', name: 'Bags', icon: '👜' },
-    { id: 'tech', name: 'Tech Items', icon: '📱' },
+    { id: 'hampers', name: 'Gift Hampers', icon: '🎁' },
+    { id: 'boxes', name: 'Gift Boxes', icon: '📦' },
+    { id: 'baskets', name: 'Baskets', icon: '🧺' },
+    { id: 'premium', name: 'Premium', icon: '⭐' },
   ];
 
   const products = [
     {
       id: 1,
-      name: 'Custom T-Shirts',
-      category: 'apparel',
-      description: 'Premium cotton t-shirts with custom printing',
+      name: 'The Goodness Box',
+      category: 'boxes',
+      description: 'Curated box with premium dry fruits and chocolates',
       badge: 'Best Seller',
-      color: 'from-blue-400 to-blue-600',
+      image: '/images/products/product-1.webp',
     },
     {
       id: 2,
-      name: 'Branded Water Bottles',
-      category: 'drinkware',
-      description: 'Stainless steel insulated bottles',
-      badge: 'Popular',
-      color: 'from-cyan-400 to-teal-600',
+      name: 'Copper Touch Hamper',
+      category: 'premium',
+      description: 'Elegant hamper with copper accents and gourmet treats',
+      badge: 'Premium',
+      image: '/images/products/product-2.webp',
     },
     {
       id: 3,
-      name: 'Executive Diaries',
-      category: 'stationery',
-      description: 'Premium leather-bound diaries',
-      badge: 'Premium',
-      color: 'from-amber-400 to-orange-600',
+      name: 'The Kraft Gift Bag',
+      category: 'hampers',
+      description: 'Eco-friendly kraft bag filled with festive goodies',
+      badge: null,
+      image: '/images/products/product-3.webp',
     },
     {
       id: 4,
-      name: 'Metal Pens',
-      category: 'stationery',
-      description: 'Elegant metal pens with engraving',
-      badge: null,
-      color: 'from-gray-400 to-gray-600',
+      name: 'Mini Red Box',
+      category: 'boxes',
+      description: 'Compact gift box perfect for personal gifting',
+      badge: 'Popular',
+      image: '/images/products/product-4.webp',
     },
     {
       id: 5,
-      name: 'Laptop Bags',
-      category: 'bags',
-      description: 'Professional laptop backpacks',
-      badge: 'New',
-      color: 'from-indigo-400 to-purple-600',
+      name: 'Nuts About Nuts Hamper',
+      category: 'hampers',
+      description: 'Premium assorted dry fruits in a handcrafted hamper',
+      badge: null,
+      image: '/images/products/product-5.webp',
     },
     {
       id: 6,
-      name: 'Power Banks',
-      category: 'tech',
-      description: 'High capacity custom power banks',
-      badge: null,
-      color: 'from-green-400 to-emerald-600',
+      name: 'Three Tins',
+      category: 'boxes',
+      description: 'Triple tin set with gourmet nuts and trail mixes',
+      badge: 'New',
+      image: '/images/products/product-6.webp',
     },
     {
       id: 7,
-      name: 'Coffee Mugs',
-      category: 'drinkware',
-      description: 'Ceramic mugs with full color print',
-      badge: 'Best Seller',
-      color: 'from-rose-400 to-pink-600',
+      name: 'Peach Hamper',
+      category: 'hampers',
+      description: 'Pastel-themed hamper with curated festive treats',
+      badge: null,
+      image: '/images/products/product-7.webp',
     },
     {
       id: 8,
-      name: 'Polo Shirts',
-      category: 'apparel',
-      description: 'Corporate polo shirts with embroidery',
-      badge: null,
-      color: 'from-violet-400 to-purple-600',
+      name: 'KG Hamper',
+      category: 'premium',
+      description: 'Grand hamper packed with premium festive delights',
+      badge: 'Best Seller',
+      image: '/images/products/product-8.webp',
     },
   ];
 
@@ -162,51 +161,29 @@ const Products = () => {
               className="group relative bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100"
             >
               {/* Product Image Area */}
-              <div className={`relative h-48 bg-gradient-to-br ${product.color} overflow-hidden`}>
-                {/* Animated Background Shapes */}
-                <motion.div
-                  className="absolute -top-10 -right-10 w-32 h-32 bg-white/20 rounded-full"
-                  animate={{ scale: [1, 1.2, 1], rotate: [0, 90, 0] }}
-                  transition={{ duration: 8, repeat: Infinity }}
+              <div className="relative h-48 overflow-hidden bg-gray-100">
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  loading="lazy"
                 />
-                <motion.div
-                  className="absolute -bottom-10 -left-10 w-24 h-24 bg-white/10 rounded-full"
-                  animate={{ scale: [1.2, 1, 1.2], rotate: [0, -90, 0] }}
-                  transition={{ duration: 6, repeat: Infinity }}
-                />
-
-                {/* Product Icon */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <motion.div
-                    className="w-20 h-20 bg-white/30 backdrop-blur-sm rounded-2xl flex items-center justify-center"
-                    whileHover={{ rotate: [0, -5, 5, 0], scale: 1.1 }}
-                    transition={{ duration: 0.5 }}
-                  >
-                    <FaShoppingCart className="text-3xl text-white" />
-                  </motion.div>
-                </div>
 
                 {/* Badge */}
                 {product.badge && (
-                  <motion.span
-                    initial={{ x: -50, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    className="absolute top-4 left-4 bg-white text-gray-800 text-xs font-bold px-3 py-1 rounded-full shadow-lg"
-                  >
+                  <span className="absolute top-4 left-4 bg-white text-gray-800 text-xs font-bold px-3 py-1 rounded-full shadow-lg">
                     {product.badge}
-                  </motion.span>
+                  </span>
                 )}
 
                 {/* Hover Overlay */}
-                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
-                  <motion.a
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                  <a
                     href="#contact"
-                    initial={{ scale: 0 }}
-                    whileHover={{ scale: 1.1 }}
-                    className="p-4 bg-white rounded-full text-primary shadow-xl"
+                    className="p-4 bg-white rounded-full text-primary shadow-xl hover:scale-110 transition-transform"
                   >
                     <FaSearch className="text-xl" />
-                  </motion.a>
+                  </a>
                 </div>
               </div>
 

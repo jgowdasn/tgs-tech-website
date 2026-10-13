@@ -41,7 +41,7 @@ const Navbar = () => {
             whileHover={{ scale: 1.05 }}
           >
             <img
-              src="/images/logo/TGS Tech_logo.jpeg"
+              src="/images/logo/TGS Tech_logo.webp"
               alt="TGS Tech Logo"
               className={`transition-all duration-300 ${
                 scrolled ? 'h-12' : 'h-14'

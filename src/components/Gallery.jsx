@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
-import { FaTimes, FaExpand, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { FaTimes, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { FloatingBubbles, AmoebaBlob } from './AnimatedShapes';
 
 const Gallery = () => {
@@ -10,18 +10,18 @@ const Gallery = () => {
   const [selectedImage, setSelectedImage] = useState(null);
 
   const galleryImages = [
-    { id: 1, title: 'Corporate Gift Set', category: 'Corporate', color: 'from-blue-400 to-indigo-500', image: '/images/gallery/1.jpg' },
-    { id: 2, title: 'Wedding Return Gifts', category: 'Wedding', color: 'from-pink-400 to-rose-500' },
-    { id: 3, title: 'Custom T-Shirts', category: 'Apparel', color: 'from-purple-400 to-violet-500' },
-    { id: 4, title: 'Premium Hampers', category: 'Hampers', color: 'from-amber-400 to-orange-500' },
-    { id: 5, title: 'School Event Gifts', category: 'Academic', color: 'from-green-400 to-emerald-500', image: '/images/gallery/5.jpg' },
-    { id: 6, title: 'Branded Stationery', category: 'Stationery', color: 'from-cyan-400 to-teal-500' },
-    { id: 7, title: 'Executive Gift Box', category: 'Corporate', color: 'from-slate-400 to-gray-600' },
-    { id: 8, title: 'Festival Special', category: 'Festival', color: 'from-red-400 to-rose-500' },
-    { id: 9, title: 'Custom Drinkware', category: 'Drinkware', color: 'from-sky-400 to-blue-500', image: '/images/gallery/9.jpg' },
-    { id: 10, title: 'Tech Accessories', category: 'Tech', color: 'from-violet-400 to-purple-500', image: '/images/gallery/10.jpg' },
-    { id: 11, title: 'Eco-Friendly Gifts', category: 'Eco', color: 'from-lime-400 to-green-500' },
-    { id: 12, title: 'Luxury Gift Sets', category: 'Premium', color: 'from-yellow-400 to-amber-500' },
+    { id: 1, title: 'Artisan Hamper', category: 'Premium', image: '/images/gallery/gallery-1.webp' },
+    { id: 2, title: 'Celebration Hamper', category: 'Festival', image: '/images/gallery/gallery-2.webp' },
+    { id: 3, title: 'Grande Hamper', category: 'Premium', image: '/images/gallery/gallery-3.webp' },
+    { id: 4, title: 'Signature Hamper', category: 'Corporate', image: '/images/gallery/gallery-4.webp' },
+    { id: 5, title: 'The Chic Box', category: 'Hampers', image: '/images/gallery/gallery-5.webp' },
+    { id: 6, title: 'The Bamboo Basket', category: 'Eco', image: '/images/gallery/gallery-6.webp' },
+    { id: 7, title: 'Classic Gift Hamper', category: 'Corporate', image: '/images/gallery/gallery-7.webp' },
+    { id: 8, title: 'Festive Gift Box', category: 'Festival', image: '/images/gallery/gallery-8.webp' },
+    { id: 9, title: 'Duplex Hamper', category: 'Premium', image: '/images/gallery/gallery-9.webp' },
+    { id: 10, title: 'Wicker Basket', category: 'Hampers', image: '/images/gallery/gallery-10.webp' },
+    { id: 11, title: 'Something Copper', category: 'Premium', image: '/images/gallery/gallery-11.webp' },
+    { id: 12, title: 'The Keepsake', category: 'Corporate', image: '/images/gallery/gallery-12.webp' },
   ];
 
   const openLightbox = (index) => {
@@ -83,30 +83,13 @@ const Gallery = () => {
                 }`}
               onClick={() => openLightbox(index)}
             >
-              <div className={`${index === 0 || index === 5 ? 'h-80 md:h-full' : 'h-48 md:h-56'} bg-gradient-to-br ${image.color} relative overflow-hidden`}>
-                {/* Animated Background Shapes */}
-                <motion.div
-                  className="absolute -top-10 -right-10 w-32 h-32 bg-white/20 rounded-full"
-                  animate={{ scale: [1, 1.2, 1], rotate: [0, 90, 0] }}
-                  transition={{ duration: 10, repeat: Infinity }}
+              <div className={`${index === 0 || index === 5 ? 'h-80 md:h-full' : 'h-48 md:h-56'} relative overflow-hidden bg-gray-100`}>
+                <img
+                  src={image.image}
+                  alt={image.title}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  loading="lazy"
                 />
-                <motion.div
-                  className="absolute -bottom-10 -left-10 w-24 h-24 bg-white/10 rounded-full"
-                  animate={{ scale: [1.2, 1, 1.2] }}
-                  transition={{ duration: 8, repeat: Infinity }}
-                />
-
-                <div className="w-full h-full flex items-center justify-center">
-                  <motion.div
-                    className="text-center p-4"
-                    whileHover={{ scale: 1.1 }}
-                  >
-                    <div className="w-16 h-16 mx-auto bg-white/30 backdrop-blur-sm rounded-2xl flex items-center justify-center mb-3">
-                      <FaExpand className="text-2xl text-white" />
-                    </div>
-                    <p className="text-white font-semibold text-shadow">{image.title}</p>
-                  </motion.div>
-                </div>
               </div>
 
               {/* Hover Overlay */}
@@ -189,42 +172,22 @@ const Gallery = () => {
           <motion.div
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            className={`max-w-4xl w-full bg-gradient-to-br ${galleryImages[selectedImage].color} rounded-3xl overflow-hidden shadow-2xl`}
+            className="max-w-4xl w-full rounded-3xl overflow-hidden shadow-2xl bg-black"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Animated Background */}
-            <div className="relative h-96 md:h-[500px]">
-              <motion.div
-                className="absolute -top-20 -right-20 w-64 h-64 bg-white/20 rounded-full"
-                animate={{ scale: [1, 1.2, 1], rotate: [0, 180, 360] }}
-                transition={{ duration: 20, repeat: Infinity }}
+            <div className="relative">
+              <img
+                src={galleryImages[selectedImage].image}
+                alt={galleryImages[selectedImage].title}
+                className="w-full max-h-[80vh] object-contain"
               />
-              <motion.div
-                className="absolute -bottom-20 -left-20 w-48 h-48 bg-white/10 rounded-full"
-                animate={{ scale: [1.2, 1, 1.2] }}
-                transition={{ duration: 15, repeat: Infinity }}
-              />
-
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center p-8">
-                  <motion.div
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ type: 'spring' }}
-                    className="w-24 h-24 mx-auto bg-white/30 backdrop-blur-sm rounded-3xl flex items-center justify-center mb-6"
-                  >
-                    <FaExpand className="text-4xl text-white" />
-                  </motion.div>
-                  <h3 className="text-white text-3xl font-bold mb-2">
-                    {galleryImages[selectedImage].title}
-                  </h3>
-                  <span className="inline-block px-4 py-2 bg-white/20 text-white rounded-full font-medium">
-                    {galleryImages[selectedImage].category}
-                  </span>
-                  <p className="text-white/70 mt-6 text-sm">
-                    Add image: /public/images/gallery/{selectedImage + 1}.jpg
-                  </p>
-                </div>
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
+                <h3 className="text-white text-2xl font-bold">
+                  {galleryImages[selectedImage].title}
+                </h3>
+                <span className="inline-block mt-2 px-3 py-1 bg-white/20 text-white text-sm rounded-full">
+                  {galleryImages[selectedImage].category}
+                </span>
               </div>
             </div>
           </motion.div>
