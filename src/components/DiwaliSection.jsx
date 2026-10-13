@@ -1,7 +1,275 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
-import { useRef, useState, useMemo } from 'react';
+import { useRef, useState, useMemo, useEffect, useCallback } from 'react';
 import { FaWhatsapp, FaGift, FaTruck, FaPalette, FaBoxOpen } from 'react-icons/fa';
+
+/* ── Canvas fireworks ── */
+const FireworksCanvas = () => {
+  const canvasRef = useRef(null);
+
+  const draw = useCallback(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const W = canvas.width = canvas.offsetWidth;
+    const H = canvas.height = canvas.offsetHeight;
+
+    const colors = ['#FFD700','#FF6B6B','#4ECDC4','#FF9F43','#EE5A24','#A29BFE','#FD79A8','#00CEC9'];
+    let particles = [];
+    let rockets = [];
+
+    function spawnRocket() {
+      rockets.push({
+        x: Math.random() * W,
+        y: H,
+        targetY: H * 0.15 + Math.random() * H * 0.35,
+        speed: 3 + Math.random() * 2,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        trail: [],
+      });
+    }
+
+    function explode(x, y, color) {
+      const count = 40 + Math.floor(Math.random() * 30);
+      for (let i = 0; i < count; i++) {
+        const angle = (Math.PI * 2 * i) / count + Math.random() * 0.3;
+        const speed = 1.5 + Math.random() * 3;
+        particles.push({
+          x, y,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          life: 1,
+          decay: 0.012 + Math.random() * 0.01,
+          color,
+          size: 2 + Math.random() * 2,
+        });
+      }
+    }
+
+    let lastSpawn = 0;
+    function animate(time) {
+      ctx.fillStyle = 'rgba(26, 10, 46, 0.25)';
+      ctx.fillRect(0, 0, W, H);
+
+      if (time - lastSpawn > 800 + Math.random() * 1200) {
+        spawnRocket();
+        lastSpawn = time;
+      }
+
+      for (let i = rockets.length - 1; i >= 0; i--) {
+        const r = rockets[i];
+        r.trail.push({ x: r.x, y: r.y });
+        if (r.trail.length > 8) r.trail.shift();
+        r.y -= r.speed;
+
+        r.trail.forEach((t, ti) => {
+          ctx.beginPath();
+          ctx.arc(t.x, t.y, 1.5, 0, Math.PI * 2);
+          ctx.fillStyle = r.color;
+          ctx.globalAlpha = ti / r.trail.length * 0.6;
+          ctx.fill();
+        });
+        ctx.globalAlpha = 1;
+
+        ctx.beginPath();
+        ctx.arc(r.x, r.y, 3, 0, Math.PI * 2);
+        ctx.fillStyle = r.color;
+        ctx.shadowColor = r.color;
+        ctx.shadowBlur = 15;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+
+        if (r.y <= r.targetY) {
+          explode(r.x, r.y, r.color);
+          rockets.splice(i, 1);
+        }
+      }
+
+      for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += 0.03;
+        p.vx *= 0.99;
+        p.life -= p.decay;
+
+        if (p.life <= 0) { particles.splice(i, 1); continue; }
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        ctx.globalAlpha = p.life;
+        ctx.shadowColor = p.color;
+        ctx.shadowBlur = 8;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+        ctx.globalAlpha = 1;
+      }
+
+      requestAnimationFrame(animate);
+    }
+    const raf = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(raf);
+  }, []);
+
+  useEffect(() => draw(), [draw]);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      className="absolute inset-0 w-full h-full pointer-events-none"
+      style={{ zIndex: 1 }}
+    />
+  );
+};
+
+/* ── Balloons ── */
+const BALLOON_TAGS = ['🪔 Diwali','30% Off','🎁 Gifts','Sale!','🎆 Fest','Order Now','Premium','🪔 Joy','Hampers','Celebrate'];
+const BALLOON_COLORS = ['#FF6B6B','#FFD93D','#6BCB77','#4D96FF','#FF6B9D','#C084FC','#FB923C','#2DD4BF'];
+const BALLOONS = Array.from({ length: 10 }, (_, i) => ({
+  color: BALLOON_COLORS[i % BALLOON_COLORS.length],
+  tag: BALLOON_TAGS[i],
+  left: 5 + (i * 9.5),
+  delay: i * 1.8,
+  duration: 14 + (i % 4) * 3,
+  size: 36 + (i % 3) * 8,
+}));
+
+const BalloonField = () => (
+  <div className="absolute inset-0 pointer-events-none overflow-hidden" style={{ zIndex: 1 }}>
+    {BALLOONS.map((b, i) => (
+      <div
+        key={i}
+        className="absolute"
+        style={{
+          left: `${b.left}%`,
+          bottom: '-60px',
+          animation: `balloonRise ${b.duration}s ${b.delay}s ease-in infinite`,
+        }}
+      >
+        <div
+          className="relative"
+          style={{ animation: `balloonSway ${3 + (i % 2)}s ease-in-out infinite alternate` }}
+        >
+          {/* Balloon body */}
+          <div
+            style={{
+              width: b.size,
+              height: b.size * 1.2,
+              background: `radial-gradient(circle at 35% 30%, ${b.color}dd, ${b.color})`,
+              borderRadius: '50% 50% 50% 50% / 60% 60% 40% 40%',
+              boxShadow: `inset -4px -4px 8px rgba(0,0,0,0.2), 0 0 12px ${b.color}44`,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            {/* Shine */}
+            <div
+              style={{
+                position: 'absolute',
+                top: '15%', left: '22%',
+                width: '30%', height: '25%',
+                background: 'rgba(255,255,255,0.35)',
+                borderRadius: '50%',
+                transform: 'rotate(-30deg)',
+              }}
+            />
+            {/* Tag */}
+            <span style={{
+              fontSize: Math.max(7, b.size * 0.2),
+              fontWeight: 700,
+              color: '#fff',
+              textShadow: '0 1px 2px rgba(0,0,0,0.4)',
+              lineHeight: 1.1,
+              textAlign: 'center',
+              padding: '0 3px',
+              position: 'relative',
+              zIndex: 1,
+            }}>{b.tag}</span>
+          </div>
+          {/* Knot */}
+          <div style={{
+            width: 6, height: 6,
+            background: b.color,
+            borderRadius: '50%',
+            margin: '-2px auto 0',
+            filter: 'brightness(0.7)',
+          }} />
+          {/* String */}
+          <div style={{
+            width: 1,
+            height: 30 + (i % 3) * 10,
+            background: 'rgba(255,255,255,0.3)',
+            margin: '0 auto',
+          }} />
+        </div>
+      </div>
+    ))}
+    <style>{`
+      @keyframes balloonRise {
+        0% { transform: translateY(0); opacity: 0; }
+        5% { opacity: 0.85; }
+        85% { opacity: 0.85; }
+        100% { transform: translateY(-120vh); opacity: 0; }
+      }
+      @keyframes balloonSway {
+        from { transform: translateX(-15px) rotate(-3deg); }
+        to { transform: translateX(15px) rotate(3deg); }
+      }
+    `}</style>
+  </div>
+);
+
+/* ── Confetti / Air Busters ── */
+const CONFETTI_PIECES = Array.from({ length: 40 }, (_, i) => ({
+  left: Math.random() * 100,
+  delay: Math.random() * 8,
+  duration: 4 + Math.random() * 4,
+  color: ['#FFD700','#FF6B6B','#4ECDC4','#FF9F43','#A29BFE','#FD79A8','#00CEC9','#6BCB77'][i % 8],
+  size: 4 + Math.random() * 6,
+  drift: -30 + Math.random() * 60,
+  shape: i % 3,
+}));
+
+const ConfettiField = () => (
+  <div className="absolute inset-0 pointer-events-none overflow-hidden" style={{ zIndex: 1 }}>
+    {CONFETTI_PIECES.map((c, i) => (
+      <div
+        key={i}
+        className="absolute"
+        style={{
+          left: `${c.left}%`,
+          top: '-10px',
+          animation: `confettiFall ${c.duration}s ${c.delay}s linear infinite`,
+          '--drift': `${c.drift}px`,
+        }}
+      >
+        <div style={{
+          width: c.size,
+          height: c.shape === 2 ? c.size : c.size * (c.shape === 0 ? 1.5 : 0.5),
+          background: c.color,
+          borderRadius: c.shape === 1 ? '50%' : c.shape === 2 ? '2px' : '1px',
+          animation: `confettiSpin ${1 + Math.random()}s linear infinite`,
+          opacity: 0.8,
+        }} />
+      </div>
+    ))}
+    <style>{`
+      @keyframes confettiFall {
+        0% { transform: translateY(0) translateX(0); opacity: 0; }
+        10% { opacity: 1; }
+        90% { opacity: 1; }
+        100% { transform: translateY(100vh) translateX(var(--drift)); opacity: 0; }
+      }
+      @keyframes confettiSpin {
+        from { transform: rotate(0deg) scale(1); }
+        50% { transform: rotate(180deg) scale(0.5); }
+        to { transform: rotate(360deg) scale(1); }
+      }
+    `}</style>
+  </div>
+);
 
 const WHATSAPP = '917892359479';
 
@@ -39,72 +307,6 @@ const highlights = [
   { icon: <FaGift />, text: 'Personalized Gift Messages' },
 ];
 
-const Sparkle = ({ style }) => (
-  <motion.div
-    className="absolute w-1 h-1 bg-yellow-300 rounded-full"
-    style={style}
-    animate={{
-      opacity: [0, 1, 0],
-      scale: [0, 1.5, 0],
-    }}
-    transition={{
-      duration: 2 + Math.random() * 2,
-      repeat: Infinity,
-      delay: Math.random() * 3,
-    }}
-  />
-);
-
-const BURST_PARTICLES = Array.from({ length: 10 }, (_, i) => {
-  const angle = (i / 10) * Math.PI * 2;
-  const dist = 50 + (i % 3) * 20;
-  return { dx: Math.cos(angle) * dist, dy: Math.sin(angle) * dist };
-});
-
-const Firework = ({ x, delay, color, loop = 6 }) => (
-  <div className="absolute pointer-events-none" style={{ left: x, bottom: '30%' }}>
-    {/* Rising trail */}
-    <motion.div
-      className="w-1 h-1 rounded-full absolute"
-      style={{ background: color, boxShadow: `0 0 8px 2px ${color}` }}
-      animate={{
-        y: [0, -80, -150],
-        opacity: [0, 1, 0],
-        scale: [0.5, 1, 0.3],
-      }}
-      transition={{ duration: 1, delay, repeat: Infinity, repeatDelay: loop }}
-    />
-    {/* Burst */}
-    {BURST_PARTICLES.map((p, i) => (
-      <motion.div
-        key={i}
-        className="absolute w-2 h-2 rounded-full"
-        style={{ background: color, boxShadow: `0 0 6px 2px ${color}` }}
-        animate={{
-          x: [0, 0, p.dx, p.dx * 1.2],
-          y: [0, -150, -150 + p.dy, -150 + p.dy + 20],
-          opacity: [0, 0, 1, 0],
-          scale: [0, 0, 1, 0],
-        }}
-        transition={{ duration: 2.5, delay: delay + 0.9, repeat: Infinity, repeatDelay: loop }}
-      />
-    ))}
-  </div>
-);
-
-const Diya = ({ className }) => (
-  <motion.div
-    className={`absolute ${className}`}
-    animate={{ opacity: [0.6, 1, 0.6] }}
-    transition={{ duration: 1.5, repeat: Infinity }}
-  >
-    <div className="relative">
-      <div className="w-3 h-4 bg-gradient-to-t from-yellow-500 via-orange-400 to-yellow-200 rounded-full blur-[1px]" />
-      <div className="w-5 h-2 bg-amber-700 rounded-full -mt-1 mx-auto" style={{ marginLeft: '-1px' }} />
-    </div>
-  </motion.div>
-);
-
 const DiwaliSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-50px' });
@@ -129,13 +331,6 @@ const DiwaliSection = () => {
     window.open(`https://wa.me/${WHATSAPP}?text=${msg}`, '_blank');
   };
 
-  const sparkles = useMemo(() =>
-    Array.from({ length: 30 }, (_, i) => ({
-      left: `${Math.random() * 100}%`,
-      top: `${Math.random() * 100}%`,
-    })), []
-  );
-
   return (
     <section
       id="diwali"
@@ -143,22 +338,14 @@ const DiwaliSection = () => {
       ref={ref}
       style={{ background: 'linear-gradient(135deg, #1a0a2e 0%, #2d0a1e 40%, #1a0f0a 70%, #1a0a2e 100%)' }}
     >
-      {/* Fireworks */}
-      <Firework x="5%" delay={0} color="#FFD700" loop={7} />
-      <Firework x="20%" delay={3} color="#FF6B6B" loop={8} />
-      <Firework x="40%" delay={1.5} color="#4ECDC4" loop={6} />
-      <Firework x="60%" delay={4.5} color="#FF6B6B" loop={7} />
-      <Firework x="78%" delay={2} color="#FFD700" loop={8} />
-      <Firework x="93%" delay={0.5} color="#4ECDC4" loop={6} />
+      {/* Canvas fireworks */}
+      <FireworksCanvas />
 
-      {/* Sparkle field */}
-      {sparkles.map((s, i) => <Sparkle key={i} style={s} />)}
+      {/* Balloons with tags */}
+      <BalloonField />
 
-      {/* Decorative diyas */}
-      <Diya className="top-20 left-[10%] hidden md:block" />
-      <Diya className="top-32 right-[8%] hidden md:block" />
-      <Diya className="bottom-40 left-[20%] hidden md:block" />
-      <Diya className="bottom-28 right-[15%] hidden md:block" />
+      {/* Confetti / Air busters */}
+      <ConfettiField />
 
       {/* Warm glow blobs */}
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl" />
