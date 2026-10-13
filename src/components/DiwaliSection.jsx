@@ -135,7 +135,7 @@ const FireworksCanvas = () => {
     <canvas
       ref={canvasRef}
       className="absolute inset-0 w-full h-full pointer-events-none"
-      style={{ zIndex: 15 }}
+      style={{ zIndex: 5 }}
     />
   );
 };
@@ -162,7 +162,7 @@ const Balloon = ({ b }) => (
     style={{
       left: `${b.left}%`,
       bottom: '-80px',
-      zIndex: 20,
+      zIndex: 5,
       animation: `balloonRise ${b.dur}s ${b.delay}s ease-in-out infinite`,
     }}
   >
@@ -228,7 +228,7 @@ const CONFETTI_PIECES = Array.from({ length: 40 }, (_, i) => ({
 }));
 
 const ConfettiField = () => (
-  <div className="absolute inset-0 pointer-events-none overflow-hidden" style={{ zIndex: 15 }}>
+  <div className="absolute inset-0 pointer-events-none overflow-hidden" style={{ zIndex: 5 }}>
     {CONFETTI_PIECES.map((c, i) => (
       <div
         key={i}
