@@ -55,6 +55,44 @@ const Sparkle = ({ style }) => (
   />
 );
 
+const Firework = ({ x, delay, color }) => {
+  const particles = useMemo(() =>
+    Array.from({ length: 8 }, (_, i) => {
+      const angle = (i / 8) * Math.PI * 2;
+      return { dx: Math.cos(angle) * 60, dy: Math.sin(angle) * 60 };
+    }), []
+  );
+
+  return (
+    <div className="absolute" style={{ left: x, bottom: '20%' }}>
+      {/* Rising trail */}
+      <motion.div
+        className="absolute w-1 rounded-full"
+        style={{ background: color, boxShadow: `0 0 6px ${color}` }}
+        initial={{ height: 0, opacity: 1, y: 0 }}
+        animate={{ height: 40, opacity: [0, 1, 0], y: -120 }}
+        transition={{ duration: 1.2, delay, repeat: Infinity, repeatDelay: 5 + Math.random() * 4 }}
+      />
+      {/* Burst particles */}
+      {particles.map((p, i) => (
+        <motion.div
+          key={i}
+          className="absolute w-1.5 h-1.5 rounded-full"
+          style={{ background: color, boxShadow: `0 0 4px ${color}` }}
+          initial={{ x: 0, y: 0, opacity: 0, scale: 0 }}
+          animate={{
+            x: [0, p.dx],
+            y: [-120, -120 + p.dy],
+            opacity: [0, 0, 1, 0],
+            scale: [0, 0, 1.2, 0],
+          }}
+          transition={{ duration: 2, delay: delay + 1.1, repeat: Infinity, repeatDelay: 5 + Math.random() * 4 }}
+        />
+      ))}
+    </div>
+  );
+};
+
 const Diya = ({ className }) => (
   <motion.div
     className={`absolute ${className}`}
@@ -106,6 +144,13 @@ const DiwaliSection = () => {
       ref={ref}
       style={{ background: 'linear-gradient(135deg, #1a0a2e 0%, #2d0a1e 40%, #1a0f0a 70%, #1a0a2e 100%)' }}
     >
+      {/* Fireworks */}
+      <Firework x="8%" delay={0} color="#FFD700" />
+      <Firework x="25%" delay={2.5} color="#FF6B6B" />
+      <Firework x="50%" delay={1} color="#4ECDC4" />
+      <Firework x="72%" delay={3.5} color="#FFD700" />
+      <Firework x="90%" delay={1.8} color="#FF6B6B" />
+
       {/* Sparkle field */}
       {sparkles.map((s, i) => <Sparkle key={i} style={s} />)}
 
