@@ -132,11 +132,11 @@ const Hero = () => {
         />
       </div>
 
-      {/* Curved Bottom Shape */}
+      {/* Curved Bottom Shape — fills into Diwali dark section */}
       <div className="absolute bottom-0 left-0 right-0">
         <svg viewBox="0 0 1440 120" className="w-full h-auto">
           <path
-            fill="#f9fafb"
+            fill="#1a0a2e"
             d="M0,64 C480,150 960,-20 1440,64 L1440,120 L0,120 Z"
           />
         </svg>
