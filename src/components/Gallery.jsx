@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
-import { FaTimes, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { FaTimes, FaExpand, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { FloatingBubbles, AmoebaBlob } from './AnimatedShapes';
 
 const Gallery = () => {
