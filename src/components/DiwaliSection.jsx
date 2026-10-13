@@ -55,43 +55,42 @@ const Sparkle = ({ style }) => (
   />
 );
 
-const Firework = ({ x, delay, color }) => {
-  const particles = useMemo(() =>
-    Array.from({ length: 8 }, (_, i) => {
-      const angle = (i / 8) * Math.PI * 2;
-      return { dx: Math.cos(angle) * 60, dy: Math.sin(angle) * 60 };
-    }), []
-  );
+const BURST_PARTICLES = Array.from({ length: 10 }, (_, i) => {
+  const angle = (i / 10) * Math.PI * 2;
+  const dist = 50 + (i % 3) * 20;
+  return { dx: Math.cos(angle) * dist, dy: Math.sin(angle) * dist };
+});
 
-  return (
-    <div className="absolute" style={{ left: x, bottom: '20%' }}>
-      {/* Rising trail */}
+const Firework = ({ x, delay, color, loop = 6 }) => (
+  <div className="absolute pointer-events-none" style={{ left: x, bottom: '30%' }}>
+    {/* Rising trail */}
+    <motion.div
+      className="w-1 h-1 rounded-full absolute"
+      style={{ background: color, boxShadow: `0 0 8px 2px ${color}` }}
+      animate={{
+        y: [0, -80, -150],
+        opacity: [0, 1, 0],
+        scale: [0.5, 1, 0.3],
+      }}
+      transition={{ duration: 1, delay, repeat: Infinity, repeatDelay: loop }}
+    />
+    {/* Burst */}
+    {BURST_PARTICLES.map((p, i) => (
       <motion.div
-        className="absolute w-1 rounded-full"
-        style={{ background: color, boxShadow: `0 0 6px ${color}` }}
-        initial={{ height: 0, opacity: 1, y: 0 }}
-        animate={{ height: 40, opacity: [0, 1, 0], y: -120 }}
-        transition={{ duration: 1.2, delay, repeat: Infinity, repeatDelay: 5 + Math.random() * 4 }}
+        key={i}
+        className="absolute w-2 h-2 rounded-full"
+        style={{ background: color, boxShadow: `0 0 6px 2px ${color}` }}
+        animate={{
+          x: [0, 0, p.dx, p.dx * 1.2],
+          y: [0, -150, -150 + p.dy, -150 + p.dy + 20],
+          opacity: [0, 0, 1, 0],
+          scale: [0, 0, 1, 0],
+        }}
+        transition={{ duration: 2.5, delay: delay + 0.9, repeat: Infinity, repeatDelay: loop }}
       />
-      {/* Burst particles */}
-      {particles.map((p, i) => (
-        <motion.div
-          key={i}
-          className="absolute w-1.5 h-1.5 rounded-full"
-          style={{ background: color, boxShadow: `0 0 4px ${color}` }}
-          initial={{ x: 0, y: 0, opacity: 0, scale: 0 }}
-          animate={{
-            x: [0, p.dx],
-            y: [-120, -120 + p.dy],
-            opacity: [0, 0, 1, 0],
-            scale: [0, 0, 1.2, 0],
-          }}
-          transition={{ duration: 2, delay: delay + 1.1, repeat: Infinity, repeatDelay: 5 + Math.random() * 4 }}
-        />
-      ))}
-    </div>
-  );
-};
+    ))}
+  </div>
+);
 
 const Diya = ({ className }) => (
   <motion.div
@@ -145,11 +144,12 @@ const DiwaliSection = () => {
       style={{ background: 'linear-gradient(135deg, #1a0a2e 0%, #2d0a1e 40%, #1a0f0a 70%, #1a0a2e 100%)' }}
     >
       {/* Fireworks */}
-      <Firework x="8%" delay={0} color="#FFD700" />
-      <Firework x="25%" delay={2.5} color="#FF6B6B" />
-      <Firework x="50%" delay={1} color="#4ECDC4" />
-      <Firework x="72%" delay={3.5} color="#FFD700" />
-      <Firework x="90%" delay={1.8} color="#FF6B6B" />
+      <Firework x="5%" delay={0} color="#FFD700" loop={7} />
+      <Firework x="20%" delay={3} color="#FF6B6B" loop={8} />
+      <Firework x="40%" delay={1.5} color="#4ECDC4" loop={6} />
+      <Firework x="60%" delay={4.5} color="#FF6B6B" loop={7} />
+      <Firework x="78%" delay={2} color="#FFD700" loop={8} />
+      <Firework x="93%" delay={0.5} color="#4ECDC4" loop={6} />
 
       {/* Sparkle field */}
       {sparkles.map((s, i) => <Sparkle key={i} style={s} />)}
